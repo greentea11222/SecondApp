@@ -1,0 +1,7 @@
+public class Book{
+    private String title;
+    
+    public void getTitle(){
+        return this.title;
+    }
+}
