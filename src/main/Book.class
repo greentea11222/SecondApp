@@ -2,7 +2,7 @@ public class Book{
     private String title;
     private  LocalDate publishDate;
     
-        public String getTitle(){
+        public String getTitle(){っっっっd
         return this.title;
     }
     public LocalDate getPublishDate(){
@@ -15,3 +15,18 @@ public class Book{
         this.publishDate = publishDate;
     }
 }
+                public LocalDate getPublishDate(){
+                            return this.publihDate;
+                }
+                    public void setTitle(String title){
+                                this.title = title;
+                    }
+                        public void setPublishDate(LocalDate publishDate){
+                                    this.publishDate = publishDate;
+                        }
+                    public String toString(){
+                        rerturn "名前：" + this.title;
+                    }
+                        
+                        
+                
