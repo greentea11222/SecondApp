@@ -29,7 +29,7 @@ public class Book{
     }
     
     public String toString(){
-        return "タイトル：" + this.title + "、出版日：" + this.publishDate;
+        return "タイトル：" + this.title + "、出版日：" + this.publishDate + "価格：" + this.price;
     }
 }
                         
