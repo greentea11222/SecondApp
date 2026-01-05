@@ -9,11 +9,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
-@Entity
+@Entity //データベースのテーブルとして扱うことを宣言
 public class Book {
-	@Id
+	@Id //このフィールドを主キーに設定
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	private String title;
 	private String author;
 	private String thumbnailUrl;
