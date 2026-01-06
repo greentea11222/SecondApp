@@ -12,13 +12,14 @@ import jakarta.persistence.OneToMany;
 @Entity //データベースのテーブルとして扱うことを宣言
 public class Book {
 	@Id //このフィールドを主キーに設定
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //IDを自動採番
 	private Long id;
 	
 	private String title;
 	private String author;
 	private String thumbnailUrl;
 	
+	//1対多のリレーション。book変数と紐付き、本を削除したらそのメモも一緒に消える
 	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
 	private List<Memo> memos;
 }

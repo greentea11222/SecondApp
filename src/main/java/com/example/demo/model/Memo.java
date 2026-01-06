@@ -14,11 +14,12 @@ public class Memo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(columnDefinition = "TEXT")
+	@Column(columnDefinition = "TEXT") //DB上の型をTEXTに指定
 	private String content;
 	
-	//どの本に紐づいているか
+	//多対1のリレーション。多くのメモが1冊の本に紐付く。
 	@ManyToOne
+	//DB上のカラム名をbook_idにし、外部キーとして本と連結
 	@JoinColumn(name = "book_id")
 	private Book book;
 }
