@@ -10,6 +10,7 @@ import service.BookService;
 
 @RestController
 @RequestMapping("/api/books")
+//3000番のReactからのアクセスを許可
 @CrossOrigin(origins = "http://localhost:3000")
 public class BookController {
 	private final BookService bookService;
