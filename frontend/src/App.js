@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import axios from 'axios';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function App(){
+	const [query, setQuery] = useState('');
+	const [books, setBooks] = useState([]);
+	const [loading, setLoading] = useState(false);
+	
+	const searchBooks = async () => {
+		if (!query) return;
+		setLoading(true);
+		try{
+			//BookController.javaの@GetMapping("/search"))を叩く
+			const response = await axios.get(`http://localhost:8080/api/books/search?query=${query}`);
+			
+			//Google Books APIの結果からitemsという配列を取り出す
+			//response.data.itemsに入っている
+			setBooks(response.data.items || []);
+		} catch (error){
+			console.error("検索に失敗しました", error);
+			alert("エラーが発生しました。バックエンドが起動しているか確認してください。");
+		} finally{
+			setLoading(false);
+		}
+	};
+	
+	return(
+		
+	);
 }
 
-export default App;
+export dafault App;
