@@ -25,8 +25,40 @@ function App(){
 	};
 	
 	return(
-		
+		<div style={{ padding: '20px', fontFamily: 'sans-serif'}}>
+			<h1>読書記録</h1>
+			
+			{/* 検索フォーム */}
+			<div style={{ marginBottom: '20px'}}>
+				<input
+					type="text"
+					value={query}
+					onChange={(e) => setQuery(e.target.value)}
+					placeholder="本のタイトルを入力"
+					style={{ padding: '8px', width: '250px'}}
+				/>
+				<button onClick={searchBooks} style={{ padding: '8px 16px', marginLeft: '8px'}}>
+				検索
+				</button>
+			</div>
+			
+			{loading && <p>読み込み中</p>}
+			
+			{/* 検索結果の表示 */}
+			<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '20px'}}>
+				{books.map((book) => (
+					<div key={book.id} style={{ border: '1px solid #ccc', borderRadius: '8px'}}>
+						{/* 画像がある場合のみ表示 */}
+						{book.volumeInfo.imageLinks?.thumnail && (
+							<img src={book.volumeInfo.imageLinks.thumnail} alt={book.volumeInfo.title} style={{ width: '100%'}} />
+						)}
+						<h3 style={{ fontSize: '16px'}}>{book.volumeInfo.title}</h3>
+						<p style={{ fontSize: '14px', color: '#666'}}>{book.volumeInfo.authors?.join(', ')}</p>
+					</div>
+				))}
+			</div>
+		</div>
 	);
 }
 
-export dafault App;
+export default App;
