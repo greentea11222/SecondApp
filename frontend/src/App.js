@@ -24,6 +24,21 @@ function App(){
 		}
 	};
 	
+	const saveBook = async (book) => {
+		const bookData = {
+			title: book.volumeInfo.title,
+			author: book.volumeInfo.authors?.join(', '),
+			thumbnailUrl: book.volumeInfo.imageLinks?.thumbnail
+		};
+		
+		try{
+			await axios.post('http://localhost:8080/api/books/save', bookData);
+			alert('データベースに保存しました！');
+		}catch (error){
+			console.error("保存に失敗しました", error);
+		}
+	};
+	
 	return(
 		<div style={{ padding: '20px', fontFamily: 'sans-serif'}}>
 			<h1>読書記録</h1>
