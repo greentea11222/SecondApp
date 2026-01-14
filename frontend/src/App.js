@@ -69,6 +69,13 @@ function App(){
 						)}
 						<h3 style={{ fontSize: '16px'}}>{book.volumeInfo.title}</h3>
 						<p style={{ fontSize: '14px', color: '#666'}}>{book.volumeInfo.authors?.join(', ')}</p>
+						
+						<button
+							onClick={() => saveBook(book)}
+							style={{ marginTop: '10px', backbroundColor: '#28a745', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '4px', cursor: 'pointer'}}
+						>
+							お気に入り追加
+						</button>
 					</div>
 				))}
 			</div>
