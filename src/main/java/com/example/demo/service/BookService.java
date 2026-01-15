@@ -1,19 +1,26 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.model.Book;
+import com.example.demo.model.Memo;
 import com.example.demo.repository.BookRepository;
+import com.example.demo.repository.MemoRepository;
 
 @Service
 public class BookService {
 	private final RestTemplate restTemplate;
 	private final BookRepository bookRepository;
+	private final MemoRepository memoRepository;
 	
-	public BookService(RestTemplate restTemplate, BookRepository bookRepository) {
+	public BookService(RestTemplate restTemplate,
+			BookRepository bookRepository, MemoRepository memoRepository) {
 		this.restTemplate = restTemplate;
 		this.bookRepository = bookRepository;
+		this.memoRepository = memoRepository;
 	}
 	
 	public Book saveBook(Book book) {
@@ -23,5 +30,19 @@ public class BookService {
 	public String searchBooks(String query) {
 		String url = "https://www.googleapis.com/books/v1/volumes?q=" + query;
 		return restTemplate.getForObject(url,  String.class);
+	}
+	
+	public List<Book> getAllBooks(){
+		return bookRepository.findAll();
+	}
+	
+	public Memo addMemoToBook(Long bookId, Memo memo) {
+		//メモを紐付ける本をDBから探す
+		Book book = bookRepository.findById(bookId)
+				.orElseThrow(() -> new RuntimeException("本が見つかりません"));
+		
+		//メモに本をセットして保存
+		memo.setBook(book);
+		return memoRepository.save(memo);
 	}
 }

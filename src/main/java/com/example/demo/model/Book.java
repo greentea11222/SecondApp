@@ -22,4 +22,24 @@ public class Book {
 	//1対多のリレーション。book変数と紐付き、本を削除したらそのメモも一緒に消える
 	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
 	private List<Memo> memos;
+	
+	//Getter/Setter
+	public String getTitle() {
+		return this.title;
+	}
+	public String getAuthor() {
+		return this.author;
+	}
+	public String getThumbnailUrl() {
+		return this.thumbnailUrl;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+	public void setThumbnailUrl(String thumbnailUrl) {
+		this.thumbnailUrl = thumbnailUrl;
+	}
 }

@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.demo.model.Memo;
 
-public interface MemoryRepository extends JpaRepository<Memo, Long> {
+public interface MemoRepository extends JpaRepository<Memo, Long> {
 
 }
