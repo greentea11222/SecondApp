@@ -1,10 +1,22 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
 function App(){
 	const [query, setQuery] = useState('');
 	const [books, setBooks] = useState([]);
 	const [loading, setLoading] = useState(false);
+	const [myBooks, setMyBooks] = useState([]);
+	
+	//DBから保存済みの本を読み込む
+	const fetchMyLibrary = async () => {
+		const response = await axios.get('http://localhost:8080/api/books/my-library');
+		setMyBooks(response.data);
+	};
+	
+	//初回のみ実行
+	useEffect(() => {
+		fetchMyLibrary();
+	}, []);
 	
 	const searchBooks = async () => {
 		if (!query) return;
