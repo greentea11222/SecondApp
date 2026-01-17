@@ -6,6 +6,7 @@ function App(){
 	const [books, setBooks] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [myBooks, setMyBooks] = useState([]);
+	const [memoTexts, setMemoTexts] = useState({});
 	
 	//DBから保存済みの本を読み込む
 	const fetchMyLibrary = async () => {
@@ -49,6 +50,15 @@ function App(){
 		}catch (error){
 			console.error("保存に失敗しました", error);
 		}
+	};
+	
+	const addMemo = async (bookId) => {
+		const content = memoTexts[bookId];
+		if(!content) return;
+		await axios.post(`http://localhost:8080/api/books/${bookId}/memos`, { content});
+		setMemoTexts({ ...memoTexts, [bookId]: ''});
+		fetchMyLibrary();
+		alert("メモを保存しました！");	
 	};
 	
 	return(
