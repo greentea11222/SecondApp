@@ -8,6 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Memo {
 	@Id
@@ -21,25 +23,15 @@ public class Memo {
 	@ManyToOne
 	//DB上のカラム名をbook_idにし、外部キーとして本と連結
 	@JoinColumn(name = "book_id")
+	@JsonBackReference
 	private Book book;
 	
 	//Getter/Setter
-	public Long getId() {
-		return this.id;
-	}
-	public String getContent() {
-		return this.content;
-	}
-	public Book getBook() {
-		return this.book;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public void setContent(String content) {
-		this.content = content;
-	}
-	public void setBook(Book book) {
-		this.book = book;
-	}
+	public Long getId() { return this.id;}
+	public String getContent() { return this.content;}
+	public Book getBook() { return this.book;}
+	
+	public void setId(Long id) { this.id = id;}
+	public void setContent(String content) { this.content = content;}
+	public void setBook(Book book) { this.book = book;}
 }
