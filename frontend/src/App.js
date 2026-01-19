@@ -62,6 +62,19 @@ function App(){
 		alert("メモを保存しました！");	
 	};
 	
+	//本を削除
+	const deleteBook = async (id) => {
+		if (!window.confirm("この本をライブラリから削除しますか？")) return;
+		await axios.delete(`http://localhost:8080/api/books/${id}`);
+		fetchMyLibrary(); //一覧を更新
+	}
+	
+	//メモを削除
+	const deleteMemo = async (memoId) => {
+		await axios.delete(`http://localhost:8080/api/books/memos/${memoId}`);
+		fetchMyLibrary();
+	}
+	
 	return(
 		<div style={{ padding: '20px', fontFamily: 'sans-serif'}}>
 			<h1>読書記録</h1>
@@ -107,18 +120,27 @@ function App(){
 			<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '20px'}}>
 				{myBooks.map((book) => {
 					return(
-						<div key={book.id} style={{ border: '2px solid #007bff', padding: '15px', borderRadius: '10px', backgroundColor: '#f0f7ff'}}>
+						<div key={book.id} style={{ border: '2px solid #007bff', padding: '15px', borderRadius: '10px', backgroundColor: '#f0f7ff', position: 'relative'}}>
+							{/* 本の削除ボタン */}
+							<button 
+								onClick={() => deleteBook(book.id)}
+								style={{ position: 'absolute', top: '5px', right: '5px', cursor: 'pointer', fontSize: '18px'}}
+							>削除
+							</button>
 							<img src={book.thumbnailUrl} alt={book.title} style={{ height: '100px'}} />
 							<h3 style={{ fontSize: '16px'}}>{book.title}</h3>
-							<p style={{ fontSize: '12px'}}>{book.author}</p>
-							{/**追加 */}
-							<h3>{book.title}(ID: {book.id})</h3>
+
 							{/* 保存済みのメモ一覧 */}
 							<div style={{ backgroundColor: '#fff', padding: '10px', borderRadius: '5px', marginBottom: '10px', minHeight: '50px'}}>
 								<p style={{ fontSize: '12px', fontWeight: 'bold', margin: '0 0 5px 0'}}>読書メモ:</p>
 								{book.memos && book.memos.map((m) => (
 									<p key={m.id} style={{ fontSize: '12px', margin: '3px 0', borderBottom: '1px dotted #ccc'}}>
 										・{m.content}
+										<span
+											onClick={() => deleteMemo(m.id)}
+											style={{ cursor: 'pointer', color: 'red', fontSize: '12px'}}
+										>削除
+										</span>
 									</p>
 								))}
 							</div>

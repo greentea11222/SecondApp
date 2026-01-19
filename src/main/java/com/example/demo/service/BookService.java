@@ -36,6 +36,7 @@ public class BookService {
 		return bookRepository.findAll();
 	}
 	
+	//本にメモを追加
 	public Memo addMemoToBook(Long bookId, Memo memo) {
 		//メモを紐付ける本をDBから探す
 		Book book = bookRepository.findById(bookId)
@@ -45,4 +46,15 @@ public class BookService {
 		memo.setBook(book);
 		return memoRepository.save(memo);
 	}
+	
+	//本を削除
+	public void deleteBook(Long id) {
+		bookRepository.deleteById(id);
+	}
+	
+	//メモを削除
+	public void deleteMemo(Long memoId) {
+		memoRepository.deleteById(memoId);
+	}
+	
 }

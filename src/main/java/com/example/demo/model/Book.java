@@ -20,7 +20,7 @@ public class Book {
 	private String thumbnailUrl;
 	
 	//1対多のリレーション。book変数と紐付き、本を削除したらそのメモも一緒に消える
-	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Memo> memos;
 	
 	//Getter/Setter

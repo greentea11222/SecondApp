@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,5 +49,17 @@ public class BookController {
 	@PostMapping("/{bookId}/memos")
 	public Memo addMemo(@PathVariable Long bookId, @RequestBody Memo memo) {
 		return bookService.addMemoToBook(bookId, memo);
+	}
+	
+	//本を削除
+	@DeleteMapping("/{id}")
+	public void deleteBook(@PathVariable Long id) {
+		bookService.deleteBook(id);
+	}
+	
+	//メモを削除
+	@DeleteMapping("/memos/{memoId}")
+	public void deleteMemo(@PathVariable Long memoId) {
+		bookService.deleteMemo(memoId);
 	}
 }
