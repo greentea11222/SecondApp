@@ -120,7 +120,15 @@ function App(){
 			<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '20px'}}>
 				{myBooks.map((book) => {
 					return(
-						<div key={book.id} style={{ border: '2px solid #007bff', padding: '15px', borderRadius: '10px', backgroundColor: '#f0f7ff', position: 'relative'}}>
+						<div key={book.id} style={{
+							backgroundColor: "#ffffff",
+							borderRadius: '16px',
+							boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+							padding: '20px',
+							position: 'relative',
+							transition: 'transform 0.2s',
+							border: 'none'
+						}}>
 							{/* 本の削除ボタン */}
 							<button 
 								onClick={() => deleteBook(book.id)}
