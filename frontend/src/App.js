@@ -132,11 +132,24 @@ function App(){
 							{/* 本の削除ボタン */}
 							<button 
 								onClick={() => deleteBook(book.id)}
-								style={{ position: 'absolute', top: '5px', right: '5px', cursor: 'pointer', fontSize: '18px'}}
+								style={{ 
+									position: 'absolute', top: '12px', right: '12px',
+									backgroundColor: '#ffeaa7',
+									border: 'none', borderRadius: '50px',
+									width: '32px', height: '32px',
+									cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center'
+								}}
 							>削除
 							</button>
 							<img src={book.thumbnailUrl} alt={book.title} style={{ height: '100px'}} />
-							<h3 style={{ fontSize: '16px'}}>{book.title}</h3>
+							<h3 style={{
+								 fontSize: '1.1rem',
+								 fontWeight: 'bold',
+								 color: '#2d3436',
+								 marginBottom: '8px',
+								 lineHeight: '1.4'
+							 }}>{book.title}</h3>
+							 <p style={{ color: '#636e72', fontSize: '0.9rem', margin: '15px'}}>{book.author}</p>
 
 							{/* 保存済みのメモ一覧 */}
 							<div style={{ backgroundColor: '#fff', padding: '10px', borderRadius: '5px', marginBottom: '10px', minHeight: '50px'}}>
@@ -154,7 +167,7 @@ function App(){
 							</div>
 							
 							{/* メモ入力欄 */}
-							<div style={{ display: 'flex', gap: '5px'}}>
+							<div style={{ display: 'flex', gap: '8px', width: '100%', boxSizing: 'border-box'}}>
 								<input
 									type="text"
 									value={memoTexts[book.id] || ''}
@@ -165,9 +178,23 @@ function App(){
 										}));
 									}}
 									placeholder="感想を入力..."	
-									style={{ flex: 1, padding: '5px'}}
+									style={{
+										flex: 1, minWidth: 0, padding: '10px',
+										borderRadius: '8px', border: '1px solid #dfe6e9',
+										outline: 'none', fontSize: '0.9rem',
+										backgroundColor: '#f9f9f9'
+									}}
 								/>
-								<button onClick={() => addMemo(book.id)} style={{ padding: '5px'}}>追加</button>
+								<button
+									onClick={() => addMemo(book.id)}
+									style={{
+										backgroundColor: '#6c5ce7',
+										color: 'white', border: 'none',
+										borderRadius: '8px', padding: '0px 15px', whiteSpace: 'nowrap',
+										fontWeight: 'bold', cursor: 'pointer'
+										
+									}}
+								>追加</button>
 							</div>
 						</div>
 					);
