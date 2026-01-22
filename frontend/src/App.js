@@ -19,15 +19,18 @@ function App(){
 		fetchMyLibrary();
 	}, []);
 	
+	//async：途中で待ち時間が発生するという宣言
 	const searchBooks = async () => {
 		if (!query) return;
+		//読み込み中の表示をオン
 		setLoading(true);
 		try{
 			//BookController.javaの@GetMapping("/search"))を叩く
+			//await：返事が返ってくるまで一時停止
 			const response = await axios.get(`http://localhost:8080/api/books/search?query=${query}`);
 			
-			//Google Books APIの結果からitemsという配列を取り出す
-			//response.data.itemsに入っている
+			//Google Books APIの結果からresponse.data.itemsに入っている値をbooksに保存
+			//itemsになにもデータが入っていなければ[]（空の配列）を入れる
 			setBooks(response.data.items || []);
 		} catch (error){
 			console.error("検索に失敗しました", error);
@@ -37,16 +40,20 @@ function App(){
 		}
 	};
 	
+	//本をお気に入りに保存
 	const saveBook = async (book) => {
 		const bookData = {
+			//Googleから届くJSONデータは、1冊につきidとvolumeInfoに分かれ、volumeInfoの中にtitle、authorsなどが入っている
 			title: book.volumeInfo.title,
+			//?.（オプショナルチェイニング）：~authorsが存在する場合は「,」で配列を繋げる。
 			author: book.volumeInfo.authors?.join(', '),
 			thumbnailUrl: book.volumeInfo.imageLinks?.thumbnail
 		};
-		
 		try{
+			//axios.postはbookDataをJSON形式のテキストに変換する
 			await axios.post('http://localhost:8080/api/books/save', bookData);
 			alert('データベースに保存しました！');
+			//本が保存されたら、更新して画面に反映
 			fetchMyLibrary();
 		}catch (error){
 			console.error("保存に失敗しました", error);
@@ -76,7 +83,11 @@ function App(){
 	}
 	
 	return(
-		<div style={{ padding: '20px', fontFamily: 'sans-serif'}}>
+		<div style={{
+			backgroundColor: '#f8f9fa', minHeight: '10vh',padding: '40px 20px',
+			fontFamily: '"Helvativa Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif',
+			color: '#2d3436' 
+		}}>
 			<h1>読書記録</h1>
 			
 			{/* 検索フォーム */}
@@ -84,6 +95,7 @@ function App(){
 				<input
 					type="text"
 					value={query}
+					//inputタグの(e.target)のvalueをqueryに入れる
 					onChange={(e) => setQuery(e.target.value)}
 					placeholder="本のタイトルを入力"
 					style={{ padding: '8px', width: '250px'}}

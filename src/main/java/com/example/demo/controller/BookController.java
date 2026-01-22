@@ -27,13 +27,15 @@ public class BookController {
 		this.bookService = bookService;
 	}
 	
+	//App.jsから届いたJSON形式のbookDataを、@RequestBodyが受け取り、Jacksonライブラリを使って変換する
+	//JSONのtitleをBookクラスの変数にセット
 	@PostMapping("/save")
 	public Book save(@RequestBody Book book) {
 		//フロントエンドから送られてきた本のデータを保存
-		System.out.println("保存リクエストを受け取りました：" + book.getTitle());
 		return bookService.saveBook(book);
 	}
 	
+	//queryをキーワードとして本を検索
 	@GetMapping("/search")
 	public String search(@RequestParam String query) {
 		return bookService.searchBooks(query);

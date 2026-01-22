@@ -12,10 +12,12 @@ import com.example.demo.repository.MemoRepository;
 
 @Service
 public class BookService {
+	//RestTemplate：REST API(Web API)を呼び出すためのメソッドを提供するクラス
 	private final RestTemplate restTemplate;
 	private final BookRepository bookRepository;
 	private final MemoRepository memoRepository;
 	
+	//コンストラクタ
 	public BookService(RestTemplate restTemplate,
 			BookRepository bookRepository, MemoRepository memoRepository) {
 		this.restTemplate = restTemplate;
@@ -23,12 +25,15 @@ public class BookService {
 		this.memoRepository = memoRepository;
 	}
 	
+	//本をデータベースに保存
 	public Book saveBook(Book book) {
 		return bookRepository.save(book);
 	}
 	
+	//queryに検索キーワードを入れてGoogle APIで検索
 	public String searchBooks(String query) {
 		String url = "https://www.googleapis.com/books/v1/volumes?q=" + query;
+		//デフォルトではJSON形式で返ってくるので、String型（加工前の生テキスト）として受け取る
 		return restTemplate.getForObject(url,  String.class);
 	}
 	
