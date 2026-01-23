@@ -15,6 +15,7 @@ function App(){
 	};
 	
 	//初回のみ実行
+	//[]（依存配列）：実行するタイミング。型の場合は初回1回のみ、変数などが入っている場合は中身が書き換わるたびに実行
 	useEffect(() => {
 		fetchMyLibrary();
 	}, []);
@@ -88,22 +89,43 @@ function App(){
 			fontFamily: '"Helvativa Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif',
 			color: '#2d3436' 
 		}}>
-			<h1>読書記録</h1>
+			{/* タイトルセクション */}
+			<div style={{ maxWidth: '1000px', margin: '0 auto'}}>
+				<header style ={{ textAlign: 'center', marginBottom: '40px'}}>
+					<h1 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#6c5ce7', margin: 0}}>
+						読書記録
+					</h1>
+					<p style={{ color: '#636e72', marginTop: '10px'}}>お気に入りの本と読書記録を一箇所に</p>
+				</header>
+			</div>
 			
 			{/* 検索フォーム */}
-			<div style={{ marginBottom: '20px'}}>
-				<input
-					type="text"
-					value={query}
-					//inputタグの(e.target)のvalueをqueryに入れる
-					onChange={(e) => setQuery(e.target.value)}
-					placeholder="本のタイトルを入力"
-					style={{ padding: '8px', width: '250px'}}
-				/>
-				<button onClick={searchBooks} style={{ padding: '8px 16px', marginLeft: '8px'}}>
-				検索
-				</button>
-			</div>
+			<section style={{
+				backgroundColor: '#fff', padding: '30px',
+				borderRadius: '20px', bokShadow: '0 10px 30px rgba(0,0,0,0.5)',
+				marginBottom: '50px'
+			}}>
+				<div style={{ display: 'flex', gap: '10px'}}>
+					<input
+						type="text"
+						value={query}
+						//inputタグの(e.target)のvalueをqueryに入れる
+						onChange={(e) => setQuery(e.target.value)}
+						placeholder="本のタイトルや著者名を入力"
+						style={{ 
+							flex: 1, padding: '15px 20px', fontSize: '1.1rem', border: '2px solid #eee',
+							borderRadius: '12px', outline: 'none', transition: 'border-color 0.3s'
+						}}
+					/>
+					<button onClick={searchBooks} style={{ 
+						padding: '0 30px', backgroundColor: '#6c5ce7', color: 'white',
+						border: 'none', borderRadius: '12px', fontWeight: 'bold', cursor: 'pointer',
+						fontSize: '1rem'
+					}}>
+					検索
+					</button>
+				</div>
+			</section>
 			
 			{loading && <p>読み込み中</p>}
 			
@@ -120,15 +142,26 @@ function App(){
 						
 						<button
 							onClick={() => saveBook(book)}
-							style={{ marginTop: '10px', backgroundColor: '#28a745', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '4px', cursor: 'pointer'}}
+							style={{ marginTop: '10px', backgroundColor: '#6c5ce7', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '4px', cursor: 'pointer'}}
 						>
 							お気に入り追加
 						</button>
 					</div>
 				))}
 			</div>
-			<hr style={{ margin: '40px 0'}} />
-			<h2>マイライブラリ</h2>
+			<div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px', gap: '15px'}}>
+				<h2 style={{ 
+					fontSize: '1.8rem', fontWeight: '700', marginBottom: '20px',
+					paddingBottom: '10px', borderBottom: '3px solid #6c5ce7',
+					display: 'inline-block'
+				}}>マイライブラリ</h2>
+				<span style={{
+					backgroundColor: '#6c5ce7', color: 'white',
+					padding: '4px 12px', borderRadius: '10px', fontSize: '0.9rem', fontSize: 'bold'
+				}}>
+					{myBooks.length}冊
+				</span>
+			</div>
 			<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '20px'}}>
 				{myBooks.map((book) => {
 					return(

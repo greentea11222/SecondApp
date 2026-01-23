@@ -37,6 +37,7 @@ public class BookService {
 		return restTemplate.getForObject(url,  String.class);
 	}
 	
+	//データベースに登録されている本を全件取得
 	public List<Book> getAllBooks(){
 		return bookRepository.findAll();
 	}

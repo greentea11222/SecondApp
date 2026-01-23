@@ -9,11 +9,17 @@ import com.example.demo.model.Book;
 public interface BookRepository extends JpaRepository<Book, Long> {
 	/*
 	 * save()
-	 * BookService.javaからsave(book)が呼び出されたときの動き
+	 * BookServiceからsave(book)が呼び出されると……
 	 * ①Bookインスタンスのid(@Idがついている変数)が空か確認
 	 * ②idが空の場合はINSERT文でデータベースに新規保存
 	 * ③idが入っていれば、UPDATE文でデータベースを更新する
 	 * 
-	 * 
+	 * findAll()
+	 * BookServiceからfindAll()が呼び出されると……
+	 * ①Bookクラスについているアノテーションを確認し、
+	 * SELECT * FROM book;を発行
+	 * ②データベースがそれに応じて全件取り出し
+	 * ③データベースから戻ってきた表形式のデータを、1行ずつBookクラスのインスタンスに詰め直す
+	 * ④それらを全てまとめてList<Book>としてBookServiceに返却
 	 */
 }
