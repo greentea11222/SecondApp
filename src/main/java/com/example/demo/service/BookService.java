@@ -45,7 +45,9 @@ public class BookService {
 	//本にメモを追加
 	public Memo addMemoToBook(Long bookId, Memo memo) {
 		//メモを紐付ける本をDBから探す
+		//findById(bookId)はOptional<Book>型で返す（中身がBook型かもしれないしnullかもしれない）
 		Book book = bookRepository.findById(bookId)
+				//中身がBook型の場合はそれをbookに入れるが、nullの場合は例外を投げる
 				.orElseThrow(() -> new RuntimeException("本が見つかりません"));
 		
 		//メモに本をセットして保存

@@ -36,6 +36,7 @@ public class BookController {
 	}
 	
 	//queryをキーワードとして本を検索
+	//@RequestParam：URLの末尾に?name=valueの形式で付いているデータを受け取る(URLを見れば値が丸見え）
 	@GetMapping("/search")
 	public String search(@RequestParam String query) {
 		return bookService.searchBooks(query);
@@ -49,6 +50,7 @@ public class BookController {
 	
 	//特定の本にメモを保存する
 	@PostMapping("/{bookId}/memos")
+	//@PathVariable：URLに含まれる値をJavaの変数として取り出す
 	public Memo addMemo(@PathVariable Long bookId, @RequestBody Memo memo) {
 		return bookService.addMemoToBook(bookId, memo);
 	}

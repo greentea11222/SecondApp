@@ -61,10 +61,12 @@ function App(){
 		}
 	};
 	
+	//本にメモを追加
 	const addMemo = async (bookId) => {
 		const content = memoTexts[bookId];
 		if(!content) return;
 		await axios.post(`http://localhost:8080/api/books/${bookId}/memos`, { content});
+		//他の本に対するメモ（memoTexts）は残したまま、今保存した本の入力欄だけ空にする
 		setMemoTexts({ ...memoTexts, [bookId]: ''});
 		fetchMyLibrary();
 		alert("メモを保存しました！");	
