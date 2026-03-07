@@ -23,7 +23,7 @@ public class Book {
 	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Memo> memos;
 	
-	//Getter/Setter
+	//GetterとSetter
 	public Long getId() { return this.id;}
 	public String getTitle() { return this.title;}
 	public String getAuthor() { return this.author;}
